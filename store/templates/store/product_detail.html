@@ -1,0 +1,11 @@
+{% extends "store/base.html" %}
+
+{% block title %}{{ product.name }} | Django Shop{% endblock %}
+
+{% block content %}
+  <h1>{{ product.name }}</h1>
+  <p>Price: {{ product.price }}</p>
+  <p>{{ product.description }}</p>
+
+  <p><a href="/products/">Back to products</a></p>
+{% endblock %}

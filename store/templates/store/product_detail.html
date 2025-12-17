@@ -7,6 +7,7 @@
   <p>Price: {{ product.price }}</p>
   <p>{{ product.description }}</p>
 
-  <p><a href="{% url 'product_list' %}">Back to products</a>
+  <p>
+    <a href="{% url 'product_list' %}">Back to products</a>
 </p>
 {% endblock %}

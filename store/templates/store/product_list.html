@@ -6,10 +6,20 @@
   <h1>Products</h1>
 
   <ul>
-    {% for p in products %}
+    {% for p in page_obj %}
         <li>
             <a href="{% url 'product_detail' p.slug %}">{{ p.name }}</a>
-        </li>
     {% endfor %}
   </ul>
 {% endblock %}
+<div>
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+  {% endif %}
+
+  <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+  {% endif %}
+</div>

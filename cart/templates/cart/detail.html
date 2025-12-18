@@ -1,0 +1,13 @@
+{% extends "store/base.html" %}
+
+{% block content %}
+  <h1>Your cart</h1>
+
+  <ul>
+    {% for p in products %}
+      <li>{{ p.name }}</li>
+    {% empty %}
+      <li>Cart is empty</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

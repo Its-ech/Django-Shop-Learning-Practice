@@ -6,7 +6,7 @@
   <h1>{{ product.name }}</h1>
   <p>Price: {{ product.price }}</p>
   <p>{{ product.description }}</p>
-
+  <a href="{% url 'cart_add' product.id %}">Add to cart</a>
   <p>
     <a href="{% url 'product_list' %}">Back to products</a>
 </p>

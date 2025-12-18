@@ -4,10 +4,21 @@
   <h1>Your cart</h1>
 
   <ul>
-    {% for p in products %}
-      <li>{{ p.name }}</li>
+    {% for item in cart_items %}
+      <li>
+        {{ item.product.name }} -
+        Qty: {{ item.quantity }} -
+        Total: {{ item.total_price }}
+        <a href="{% url 'cart_remove' item.product.id %}">remove</a>
+      </li>
     {% empty %}
       <li>Cart is empty</li>
     {% endfor %}
   </ul>
+
+  <p>Cart total: {{ total }}</p>
+
+  <p>
+    <a href="{% url 'cart_clear' %}">Clear cart</a>
+  </p>
 {% endblock %}

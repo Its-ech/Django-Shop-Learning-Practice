@@ -14,8 +14,7 @@ def home(request):
     return render(request, "store/home.html", context)
 
 def product_list(request):
-    products_qs = Product.objects.filter(is_active=True)
-
+    products_qs = Product.objects.filter(is_active=True).order_by("id")
     paginator = Paginator(products_qs, 5)  
     page_number = request.GET.get("page") 
     page_obj = paginator.get_page(page_number)

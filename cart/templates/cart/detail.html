@@ -7,8 +7,15 @@
     {% for item in cart_items %}
       <li>
         {{ item.product.name }} -
-        Qty: {{ item.quantity }} -
+
+        <form method="post" action="{% url 'cart_update' item.product.id %}" style="display:inline;">
+          {% csrf_token %}
+          <input type="number" name="quantity" min="0" value="{{ item.quantity }}">
+          <button type="submit">Update</button>
+        </form>
+
         Total: {{ item.total_price }}
+
         <a href="{% url 'cart_remove' item.product.id %}">remove</a>
       </li>
     {% empty %}
@@ -19,6 +26,7 @@
   <p>Cart total: {{ total }}</p>
 
   <p>
-    <a href="{% url 'cart_clear' %}">Clear cart</a>
+    <a href="{% url 'cart_clear' %}">Clear cart</a> |
+    <a href="{% url 'product_list' %}">Back to products</a>
   </p>
 {% endblock %}

@@ -6,11 +6,11 @@
   <h1>{{ product.name }}</h1>
   <p>Price: {{ product.price }}</p>
   <p>{{ product.description }}</p>
+
   <form method="post" action="{% url 'cart_add' product.id %}">
-  {% csrf_token %}
-  <button type="submit">Add to cart</button>
-</form>
-  <p>
-    <a href="{% url 'product_list' %}">Back to products</a>
-</p>
+    {% csrf_token %}
+    <button type="submit">Add to cart</button>
+  </form>
+
+  <p><a href="{% url 'product_list' %}">Back to products</a></p>
 {% endblock %}

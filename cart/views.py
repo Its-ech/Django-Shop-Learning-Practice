@@ -1,27 +1,7 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect
+from django.views.decorators.http import require_POST
 from store.models import Product
 from .cart import Cart
-from django.views.decorators.http import require_POST
-
-
-
-@require_POST
-def cart_add(request, product_id):
-    cart = Cart(request)
-    cart.add(product_id=product_id, quantity=1)
-    return redirect("cart_detail")
-
-
-def cart_remove(request, product_id):
-    cart = Cart(request)
-    cart.remove(product_id)
-    return redirect("cart_detail")
-
-
-def cart_clear(request):
-    cart = Cart(request)
-    cart.clear()
-    return redirect("cart_detail")
 
 
 def cart_detail(request):
@@ -47,3 +27,36 @@ def cart_detail(request):
         "cart_items": cart_items,
         "total": total,
     })
+
+
+@require_POST
+def cart_add(request, product_id):
+    cart = Cart(request)
+    cart.add(product_id=product_id, quantity=1)
+    return redirect("cart_detail")
+
+
+@require_POST
+def cart_update(request, product_id):
+    cart = Cart(request)
+    qty_str = request.POST.get("quantity", "1")
+
+    try:
+        qty = int(qty_str)
+    except ValueError:
+        qty = 1
+
+    cart.update(product_id, qty)
+    return redirect("cart_detail")
+
+
+def cart_remove(request, product_id):
+    cart = Cart(request)
+    cart.remove(product_id)
+    return redirect("cart_detail")
+
+
+def cart_clear(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect("cart_detail")

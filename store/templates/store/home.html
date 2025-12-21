@@ -5,5 +5,6 @@
 {% block content %}
     <h1>{{ welcome_message }}</h1>
     <p>This is the landing page of the store.</p>
+    <p><a href="{% url 'product_list' %}">View products</a></p>
     <p>{{ tagline }}</p>
 {% endblock %}

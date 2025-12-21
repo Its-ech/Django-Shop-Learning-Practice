@@ -1,8 +1,11 @@
 from django.shortcuts import redirect, render
 from store.models import Product
 from .cart import Cart
+from django.views.decorators.http import require_POST
 
 
+
+@require_POST
 def cart_add(request, product_id):
     cart = Cart(request)
     cart.add(product_id=product_id, quantity=1)

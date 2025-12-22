@@ -1,0 +1,10 @@
+{% extends "store/base.html" %}
+
+{% block title %}Order placed | Django Shop{% endblock %}
+
+{% block content %}
+  <h1>Thank you!</h1>
+  <p>Your order #{{ order.id }} has been placed.</p>
+
+  <p><a href="{% url 'product_list' %}">Continue shopping</a></p>
+{% endblock %}

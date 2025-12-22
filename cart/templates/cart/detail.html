@@ -23,10 +23,12 @@
     {% endfor %}
   </ul>
 
-  <p>Cart total: {{ total }}</p>
+ <p>Cart total: {{ total }}</p>
 
-  <p>
-    <a href="{% url 'cart_clear' %}">Clear cart</a> |
-    <a href="{% url 'product_list' %}">Back to products</a>
-  </p>
+<p>
+  <a href="{% url 'cart_clear' %}">Clear cart</a> |
+  <a href="{% url 'product_list' %}">Back to products</a> |
+  <a href="{% url 'checkout' %}">Checkout</a>
+</p>
+
 {% endblock %}

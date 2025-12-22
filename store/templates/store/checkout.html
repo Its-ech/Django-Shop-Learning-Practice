@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+
+{% block title %}Checkout | Django Shop{% endblock %}
+
+{% block content %}
+  <h1>Checkout</h1>
+
+  <h2>Your cart</h2>
+  <ul>
+    {% for item in cart_items %}
+      <li>
+        {{ item.product.name }} - Qty: {{ item.quantity }} - Total: {{ item.total_price }}
+      </li>
+    {% endfor %}
+  </ul>
+  <p>Cart total: {{ total }}</p>
+
+  <h2>Your details</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Place order</button>
+  </form>
+
+  <p><a href="{% url 'cart_detail' %}">Back to cart</a></p>
+{% endblock %}

@@ -13,10 +13,28 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    # ثابت‌های وضعیت
+    STATUS_PENDING = "pending"
+    STATUS_PAID = "paid"
+    STATUS_SHIPPED = "shipped"
+
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PAID, "Paid"),
+        (STATUS_SHIPPED, "Shipped"),
+    ]
+
     created_at = models.DateTimeField(auto_now_add=True)
     full_name = models.CharField(max_length=255)
     address = models.CharField(max_length=500)
     email = models.EmailField(blank=True)
+
+    # فیلد جدید با مقدار پیش‌فرض
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default=STATUS_PENDING,
+    )
 
     def __str__(self):
         return f"Order #{self.id} - {self.full_name}"

@@ -7,6 +7,8 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from .forms import SignupForm, LoginForm
+
 
 
 
@@ -35,6 +37,20 @@ def login_view(request):
         form = LoginForm()
 
     return render(request, "store/login.html", {"form": form})
+
+
+def signup_view(request):
+    if request.method == "POST":
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # کاربر جدید ساخته می‌شود
+            messages.success(request, "Account created. You can now log in.")
+            return redirect("login")
+    else:
+        form = SignupForm()
+
+    return render(request, "store/signup.html", {"form": form})
+
 
 
 def logout_view(request):

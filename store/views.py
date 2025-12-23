@@ -83,6 +83,30 @@ def product_detail(request, slug):
 
 
 @login_required
+def add_to_cart(request, product_id):
+    cart = Cart(request)
+    product = get_object_or_404(Product, id=product_id, is_active=True)
+
+    if request.method == "POST":
+        try:
+            quantity = int(request.POST.get("quantity", 1))
+        except (TypeError, ValueError):
+            quantity = 1
+    else:
+        quantity = 1
+
+    quantity = max(1, quantity)
+
+    # اینجا فقط product_id می‌فرستیم، مطابق کلاس Cart
+    cart.add(product_id=product.id, quantity=quantity)
+
+    messages.success(request, f"{product.name} added to cart.")
+    return redirect("cart_detail")
+
+
+
+
+@login_required
 def checkout(request):
     cart = Cart(request)
 

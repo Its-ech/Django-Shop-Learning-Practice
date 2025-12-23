@@ -15,7 +15,6 @@ class Cart:
             self.cart[product_id] = {"quantity": 0}
 
         self.cart[product_id]["quantity"] += quantity
-
         self.session.modified = True
 
     def remove(self, product_id):
@@ -28,8 +27,6 @@ class Cart:
         self.session["cart"] = {}
         self.session.modified = True
 
-
-    
     def update(self, product_id, quantity):
         product_id = str(product_id)
         if product_id in self.cart:

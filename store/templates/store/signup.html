@@ -1,21 +1,22 @@
 {% extends "store/base.html" %}
 
-{% block title %}Login | Django Shop{% endblock %}
+{% block title %}Sign up | Django Shop{% endblock %}
 
 {% block content %}
 <section class="form-card">
-    <h1>Login</h1>
+    <h1>Sign up</h1>
 
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="form-submit">
-            <button type="submit">Log in</button>
+            <button type="submit">Create account</button>
         </div>
     </form>
 
     <p style="margin-top:10px; font-size:13px;">
-        <a href="{% url 'home' %}">Back to home</a>
+        Already have an account?
+        <a href="{% url 'login' %}">Login</a>
     </p>
 </section>
 {% endblock %}

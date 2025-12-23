@@ -3,23 +3,79 @@
 {% block title %}Products | Django Shop{% endblock %}
 
 {% block content %}
-  <h1>Products</h1>
+<div class="page-shell">
+    <!-- ستون چپ: لیست محصولات -->
+    <section class="panel">
+        <header style="margin-bottom: 14px;">
+            <h1 style="margin: 0 0 6px 0;">Products</h1>
+            <p style="margin: 0; font-size: 13px; color: var(--muted);">
+                Browse items and add them to your cart.
+            </p>
+        </header>
 
-  <ul>
-    {% for p in page_obj %}
-        <li>
-            <a href="{% url 'product_detail' p.slug %}">{{ p.name }}</a>
-    {% endfor %}
-  </ul>
-<div>
-  {% if page_obj.has_previous %}
-    <a href="{% url 'product_list' %}?page={{ page_obj.previous_page_number }}">previous</a>
-  {% endif %}
+        <div class="product-grid">
+            {% for p in page_obj %}
+                <article class="product-card">
+                    {% if p.image %}
+                        <div style="border-radius:12px; overflow:hidden; margin-bottom:8px;">
+                            <img src="{{ p.image.url }}" alt="{{ p.name }}"
+                                 style="width:100%; height:130px; object-fit:cover; display:block;">
+                        </div>
+                    {% endif %}
 
-  <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                    <h3>{{ p.name }}</h3>
+                    <div class="product-price">
+                        ${{ p.price }}
+                    </div>
+                    {% if p.description %}
+                        <p class="product-description">
+                            {{ p.description|truncatechars:90 }}
+                        </p>
+                    {% endif %}
 
-  {% if page_obj.has_next %}
-    <a href="{% url 'product_list' %}?page={{ page_obj.next_page_number }}">next</a>
-  {% endif %}
+                    <div class="product-actions">
+                        <form action="{% url 'add_to_cart' p.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="number" name="quantity" value="1" min="1">
+                            <button type="submit">Add to cart</button>
+                        </form>
+                        <a href="{% url 'product_detail' p.slug %}"
+                           style="font-size: 12px; color: var(--muted); text-decoration: none;">
+                            Details →
+                        </a>
+                    </div>
+                </article>
+            {% empty %}
+                <p>No products available.</p>
+            {% endfor %}
+        </div>
+
+        <!-- ناوبری صفحه‌ها -->
+        <div style="margin-top: 18px; font-size: 13px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                {% if page_obj.has_previous %}
+                    <a href="{% url 'product_list' %}?page={{ page_obj.previous_page_number }}">← Previous</a>
+                {% endif %}
+            </div>
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <div>
+                {% if page_obj.has_next %}
+                    <a href="{% url 'product_list' %}?page={{ page_obj.next_page_number }}">Next →</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ستون راست: خلاصه سبد یا متن معرفی ساده -->
+    <aside class="side-panel">
+        <h2 style="margin-top:0; font-size:18px;">Your cart</h2>
+        <p style="font-size:13px; color:var(--muted);">
+            Review items you have added and proceed to checkout.
+        </p>
+        <a href="{% url 'cart_detail' %}" class="primary-btn"
+           style="display:inline-block; margin-top:10px; padding:8px 16px; text-decoration:none;">
+            Open cart
+        </a>
+    </aside>
 </div>
 {% endblock %}

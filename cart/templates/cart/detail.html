@@ -1,34 +1,58 @@
 {% extends "store/base.html" %}
 
+{% block title %}Cart | Django Shop{% endblock %}
+
 {% block content %}
-  <h1>Your cart</h1>
+<section class="panel">
+    <h1>Your cart</h1>
 
-  <ul>
-    {% for item in cart_items %}
-      <li>
-        {{ item.product.name }} -
+    {% if cart_items %}
+        <ul style="list-style:none; padding-left:0; margin-top:14px; display:flex; flex-direction:column; gap:10px;">
+            {% for item in cart_items %}
+                <li style="padding:10px 12px; border-radius:10px; background:rgba(15,23,42,0.9); border:1px solid var(--border);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;">
+                        <div>
+                            <strong>{{ item.product.name }}</strong>
+                            <span style="font-size:12px; color:var(--muted); margin-left:6px;">
+                                Total: {{ item.total_price }}
+                            </span>
+                        </div>
 
-        <form method="post" action="{% url 'cart_update' item.product.id %}" style="display:inline;">
-          {% csrf_token %}
-          <input type="number" name="quantity" min="0" value="{{ item.quantity }}">
-          <button type="submit">Update</button>
-        </form>
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <form method="post" action="{% url 'cart_update' item.product.id %}" style="display:flex; align-items:center; gap:6px;">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" min="0" value="{{ item.quantity }}"
+                                       style="width:70px; padding:4px 6px; border-radius:999px; border:1px solid var(--border); background:rgba(15,23,42,0.9); color:var(--text); font-size:13px;">
+                                <button type="submit"
+                                        style="border:none; border-radius:999px; padding:5px 10px; font-size:12px; font-weight:600; cursor:pointer; background:linear-gradient(135deg, var(--accent), var(--sky)); color:#020617;">
+                                    Update
+                                </button>
+                            </form>
 
-        Total: {{ item.total_price }}
+                            <a href="{% url 'cart_remove' item.product.id %}"
+                               style="font-size:12px; color:#f97373; text-decoration:none;">
+                                remove
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
 
-        <a href="{% url 'cart_remove' item.product.id %}">remove</a>
-      </li>
-    {% empty %}
-      <li>Cart is empty</li>
-    {% endfor %}
-  </ul>
+        <p style="margin-top:14px; font-weight:600;">
+            Cart total: {{ total }}
+        </p>
 
- <p>Cart total: {{ total }}</p>
-
-<p>
-  <a href="{% url 'cart_clear' %}">Clear cart</a> |
-  <a href="{% url 'product_list' %}">Back to products</a> |
-  <a href="{% url 'checkout' %}">Checkout</a>
-</p>
-
+        <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:8px;">
+            <a href="{% url 'cart_clear' %}" class="btn-ghost">Clear cart</a>
+            <a href="{% url 'product_list' %}" class="btn-small">Back to products</a>
+            <a href="{% url 'checkout' %}" class="btn-primary">Checkout</a>
+        </div>
+    {% else %}
+        <p style="margin-top:10px;">Cart is empty</p>
+        <a href="{% url 'product_list' %}" class="btn-primary" style="margin-top:12px; display:inline-block;">
+            Browse products
+        </a>
+    {% endif %}
+</section>
 {% endblock %}

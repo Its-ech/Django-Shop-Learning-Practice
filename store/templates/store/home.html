@@ -1,10 +1,46 @@
 {% extends "store/base.html" %}
 
-{% block title %}Home | Django Shop{% endblock %}
+{% block title %}Django Shop{% endblock %}
 
 {% block content %}
-    <h1>{{ welcome_message }}</h1>
-    <p>This is the landing page of the store.</p>
-    <p><a href="{% url 'product_list' %}">View products</a></p>
-    <p>{{ tagline }}</p>
+<section class="hero">
+    <div class="hero-main">
+        <p class="hero-label">ECH • Django Shop</p>
+        <h1 class="hero-title">
+            Level up your <span>Cyber Store</span>
+        </h1>
+        <p class="hero-subtitle">
+            Dark, neon & responsive shop UI while you learn backend, security and bug hunting.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{% url 'product_list' %}" class="btn-primary">Browse products</a>
+            <a href="{% url 'cart_detail' %}" class="btn-ghost">View cart</a>
+        </div>
+    </div>
+
+    <div class="hero-art">
+        <div class="hero-art-overlay"></div>
+        <div class="hero-art-content">
+            <p>Neon galaxy store</p>
+        </div>
+    </div>
+</section>
+
+<section class="home-panels">
+    <div class="home-panel">
+        <h2>Featured products</h2>
+        <p class="home-text">
+            Hand–picked items from the shop. Add them to your cart in one click.
+        </p>
+        <a href="{% url 'product_list' %}" class="btn-small">Open catalog</a>
+    </div>
+
+    <div class="home-panel secondary">
+        <h2>Secure by design</h2>
+        <p class="home-text">
+            CSRF protection, escaped templates and clean session cart logic.
+        </p>
+    </div>
+</section>
 {% endblock %}

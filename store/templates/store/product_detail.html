@@ -3,14 +3,35 @@
 {% block title %}{{ product.name }} | Django Shop{% endblock %}
 
 {% block content %}
-  <h1>{{ product.name }}</h1>
-  <p>Price: {{ product.price }}</p>
-  <p>{{ product.description }}</p>
+<section class="panel" style="display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1.3fr); gap:20px; align-items:flex-start;">
+    {% if product.image %}
+        <div style="border-radius:18px; overflow:hidden; border:1px solid var(--border); background:#020617;">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%; display:block; object-fit:cover;">
+        </div>
+    {% endif %}
 
-  <form method="post" action="{% url 'cart_add' product.id %}">
-    {% csrf_token %}
-    <button type="submit">Add to cart</button>
-  </form>
+    <div>
+        <h1 style="margin-top:0;">{{ product.name }}</h1>
+        <p class="product-price" style="font-size:16px; margin-bottom:6px;">
+            ${{ product.price }}
+        </p>
+        {% if product.description %}
+            <p class="product-description" style="margin-bottom:14px;">
+                {{ product.description }}
+            </p>
+        {% endif %}
 
-  <p><a href="{% url 'product_list' %}">Back to products</a></p>
+        <form method="post" action="{% url 'add_to_cart' product.id %}" style="margin-top:6px;">
+            {% csrf_token %}
+            <div class="product-actions" style="justify-content:flex-start; gap:10px;">
+                <input type="number" name="quantity" value="1" min="1">
+                <button type="submit">Add to cart</button>
+            </div>
+        </form>
+
+        <p style="margin-top:14px; font-size:13px;">
+            <a href="{% url 'product_list' %}" class="btn-small">Back to products</a>
+        </p>
+    </div>
+</section>
 {% endblock %}

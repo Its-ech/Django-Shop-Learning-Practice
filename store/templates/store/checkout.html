@@ -3,24 +3,34 @@
 {% block title %}Checkout | Django Shop{% endblock %}
 
 {% block content %}
-  <h1>Checkout</h1>
+<section class="panel">
+    <h1>Checkout</h1>
 
-  <h2>Your cart</h2>
-  <ul>
-    {% for item in cart_items %}
-      <li>
-        {{ item.product.name }} - Qty: {{ item.quantity }} - Total: {{ item.total_price }}
-      </li>
-    {% endfor %}
-  </ul>
-  <p>Cart total: {{ total }}</p>
+    <h2 style="margin-top:12px;">Your cart</h2>
+    <ul style="list-style:none; padding-left:0; margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+        {% for item in cart_items %}
+            <li style="font-size:14px; color:var(--muted);">
+                {{ item.product.name }} -
+                Qty: {{ item.quantity }} -
+                Total: {{ item.total_price }}
+            </li>
+        {% endfor %}
+    </ul>
+    <p style="margin-top:8px; font-weight:600;">
+        Cart total: {{ total }}
+    </p>
 
-  <h2>Your details</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Place order</button>
-  </form>
+    <h2 style="margin-top:18px;">Your details</h2>
+    <form method="post" style="margin-top:10px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-submit">
+            <button type="submit">Place order</button>
+        </div>
+    </form>
 
-  <p><a href="{% url 'cart_detail' %}">Back to cart</a></p>
+    <p style="margin-top:10px; font-size:13px;">
+        <a href="{% url 'cart_detail' %}" class="btn-small">Back to cart</a>
+    </p>
+</section>
 {% endblock %}

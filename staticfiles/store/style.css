@@ -1,0 +1,577 @@
+:root {
+    --bg: #050614;
+    --panel: #111325;
+    --panel-soft: #151833;
+    --accent: #a855f7;
+    --accent-soft: rgba(168, 85, 247, 0.18);
+    --sky: #38bdf8;
+    --text: #e8e8f0;
+    --muted: #a6a6c0;
+    --border: rgba(148, 163, 184, 0.35);
+    --radius-lg: 18px;
+    --radius-md: 12px;
+    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%, #1d2951 0, transparent 55%),
+        radial-gradient(circle at 90% 0%, #0f172a 0, transparent 50%),
+        linear-gradient(180deg, var(--bg), #020617);
+    color: var(--text);
+}
+
+/* لایه کلی */
+
+header, main, footer {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(17,24,39,0.95));
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 12px 40px rgba(15,23,42,0.9);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+}
+
+header h2 {
+    margin: 0;
+    font-size: 22px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+/* ناوبری */
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+}
+
+nav a,
+nav span {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: 0.18s ease;
+}
+
+nav a:hover {
+    color: var(--text);
+    background: rgba(15,23,42,0.9);
+}
+
+nav .primary-btn {
+    background: radial-gradient(circle at 0 0, var(--sky), var(--accent));
+    color: #020617;
+    font-weight: 600;
+    box-shadow: 0 12px 30px rgba(56,189,248,0.35);
+}
+
+nav .primary-btn:hover {
+    filter: brightness(1.1);
+}
+
+
+/* پیام‌های فلش (success / error / info) */
+
+.messages-shell {
+    max-width: 1120px;
+    margin: 10px auto 0;
+    padding: 0 20px;
+}
+
+.messages {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.message {
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(24,24,48,0.98));
+    box-shadow: 0 12px 30px rgba(15,23,42,0.9);
+}
+
+/* نوع‌های مختلف پیام */
+
+.message-success {
+    border-color: rgba(34,197,94,0.6);
+    color: #bbf7d0;
+}
+
+.message-error {
+    border-color: rgba(248,113,113,0.7);
+    color: #fecaca;
+}
+
+.message-info,
+.message-debug {
+    border-color: var(--accent-soft);
+    color: var(--sky);
+}
+
+.message-warning {
+    border-color: rgba(251,191,36,0.7);
+    color: #fef9c3;
+}
+
+
+/* بخش اصلی */
+
+main {
+    margin-top: 18px;
+    margin-bottom: 32px;
+}
+
+/* کانتینر عمومی صفحه لیست محصولات */
+
+.page-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    gap: 24px;
+}
+
+/* ستون چپ: لیست کارت‌ها */
+
+.panel {
+    background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(24,24,48,0.96));
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    padding: 20px 22px;
+}
+
+/* کارت محصول */
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.product-card {
+    background: radial-gradient(circle at 0 0, rgba(72, 85, 255, 0.22), var(--panel));
+    border-radius: var(--radius-md);
+    border: 1px solid var(--accent-soft);
+    padding: 10px 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 14px 32px rgba(15,23,42,0.85);
+}
+
+/* تصویر کوچک داخل کارت */
+
+.product-card img {
+    width: 100%;
+    height: 140px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.product-card h3 {
+    margin: 0;
+    font-size: 15px;
+    color: var(--text);
+}
+
+.product-price {
+    color: var(--sky);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.product-description {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* فرم افزودن به سبد */
+
+.product-actions {
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.product-actions input[type="number"] {
+    width: 70px;
+    padding: 6px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,0.9);
+    color: var(--text);
+    font-size: 13px;
+}
+
+.product-actions button {
+    border: none;
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--sky));
+    color: #020617;
+    box-shadow: 0 12px 26px rgba(56,189,248,0.4);
+    transition: 0.16s ease;
+}
+
+.product-actions button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 32px rgba(56,189,248,0.45);
+}
+
+/* ستون راست: خلاصه سبد */
+
+.side-panel {
+    background: radial-gradient(circle at 0 0, rgba(72, 85, 255, 0.3), var(--panel-soft));
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--accent-soft);
+    box-shadow: var(--shadow-soft);
+    padding: 18px 20px;
+    font-size: 14px;
+}
+
+/* فرم‌های ساده */
+
+.form-card {
+    max-width: 420px;
+    margin: 0 auto;
+    background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(24,24,48,0.96));
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-soft);
+    padding: 22px 24px 24px;
+}
+
+.form-card h1 {
+    margin-top: 0;
+    margin-bottom: 14px;
+    font-size: 20px;
+    color: var(--sky);
+}
+
+
+/* استایل‌دهی به as_p داخل فرم‌ها (checkout / signup / login) */
+.form-card form p,
+.panel form p {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-card form p label,
+.panel form p label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.form-card form input[type="text"],
+.form-card form input[type="email"],
+.form-card form input[type="password"],
+.panel form input[type="text"],
+.panel form input[type="email"] {
+    width: 100%;
+    padding: 7px 11px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,0.9);
+    color: var(--text);
+    font-size: 14px;
+}
+
+
+/* استایل‌دهی به as_p فرم‌های auth */
+
+.form-card form p {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-card form p label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text);
+}
+
+.form-card form input[type="text"],
+.form-card form input[type="email"],
+.form-card form input[type="password"] {
+    width: 100%;
+    padding: 7px 11px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,0.9);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.form-card ul {
+    margin: 4px 0 0 18px;
+    padding-left: 0;
+}
+
+
+
+
+.form-field {
+    margin-bottom: 14px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 8px 11px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,0.9);
+    color: var(--text);
+    font-size: 14px;
+}
+
+.form-submit {
+    margin-top: 6px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-submit button {
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--sky));
+    color: #020617;
+}
+
+/* فوتر */
+
+footer {
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding-bottom: 24px;
+    opacity: 0.85;
+}
+
+/* HERO SECTION */
+
+.hero {
+    max-width: 1120px;
+    margin: 18px auto 28px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.1fr);
+    gap: 28px;
+    align-items: center;
+}
+
+.hero-main {
+    padding: 22px 24px;
+    border-radius: 22px;
+    background: radial-gradient(circle at 0 0, rgba(56,189,248,0.20), rgba(15,23,42,0.96));
+    border: 1px solid rgba(148,163,184,0.4);
+    box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+}
+
+.hero-label {
+    margin: 0 0 8px 0;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.hero-title {
+    margin: 0 0 10px 0;
+    font-size: 32px;
+    line-height: 1.15;
+    color: var(--text);
+}
+
+.hero-title span {
+    color: var(--accent);
+}
+
+.hero-subtitle {
+    margin: 0 0 18px 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* BUTTONS */
+
+.btn-primary,
+.btn-ghost,
+.btn-small {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 18px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--sky));
+    color: #020617;
+    box-shadow: 0 15px 40px rgba(56,189,248,0.45);
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 20px 48px rgba(56,189,248,0.55);
+}
+
+.btn-ghost {
+    border: 1px solid var(--border);
+    color: var(--text);
+    background: rgba(15,23,42,0.7);
+}
+
+.btn-ghost:hover {
+    background: rgba(15,23,42,0.95);
+}
+
+.btn-small {
+    padding: 7px 14px;
+    font-size: 13px;
+    background: rgba(15,23,42,0.9);
+    border: 1px solid var(--accent-soft);
+    color: var(--sky);
+}
+
+/* HERO ART با تصویر */
+
+.hero-art {
+    position: relative;
+    height: 260px;
+    border-radius: 22px;
+    overflow: hidden;
+    background: url("/static/store/hero-bg.jpg") center/cover no-repeat;
+    border: 1px solid rgba(148,163,184,0.35);
+    box-shadow: 0 24px 60px rgba(15,23,42,0.9);
+}
+
+.hero-art-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(56,189,248,0.35), transparent 65%),
+        radial-gradient(circle at 80% 0%, rgba(168,85,247,0.45), transparent 70%),
+        linear-gradient(180deg, rgba(2,6,23,0.75), rgba(2,6,23,0.9));
+}
+
+.hero-art-content {
+    position: absolute;
+    inset: 18px;
+    display: flex;
+    align-items: flex-end;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* SECTIONS زیر hero */
+
+.home-panels {
+    max-width: 1120px;
+    margin: 0 auto 32px;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 20px;
+}
+
+.home-panel {
+    background: linear-gradient(145deg, rgba(15,23,42,0.96), rgba(24,24,48,0.96));
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+}
+
+.home-panel.secondary {
+    background: radial-gradient(circle at 0 0, rgba(56,189,248,0.22), rgba(15,23,42,0.96));
+}
+
+.home-panel h2 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+}
+
+.home-text {
+    margin: 0 0 10px 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .hero {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .home-panels {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    header, main, footer {
+        padding-inline: 14px;
+    }
+
+    .page-shell {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

@@ -11,21 +11,37 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+
+
+
+
+ENVIRONMENT = os.environ.get("DJANGO_ENV", "development")
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#ndtb=d0vd%spf5rjot763#s0zmnn-=su7^yozc02o(15b58(4'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-#ndtb=d0vd%spf5rjot763#s0zmnn-=su7^yozc02o(15b58(4"
+)
+
+DEBUG = ENVIRONMENT != "production"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -135,3 +151,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = '/static/'  # برای استفاده در template ها
+
+# جایی که collectstatic همه فایل‌ها را برای production کپی می‌کند
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# اگر در development هم فولدر static ریشه‌ای داری (مثل store/static)
+# همین کافی است و لازم نیست STATICFILES_DIRS ست کنی.
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

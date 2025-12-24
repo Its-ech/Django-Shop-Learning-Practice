@@ -1,10 +1,9 @@
 {% extends "store/base.html" %}
 
-{% block title %}Products | Django Shop{% endblock %}
+{% block title %}Products | Game Shop{% endblock %}
 
 {% block content %}
 <div class="page-shell">
-    <!-- ستون چپ: لیست محصولات -->
     <section class="panel">
         <header style="margin-bottom: 14px;">
             <h1 style="margin: 0 0 6px 0;">Products</h1>
@@ -50,7 +49,6 @@
             {% endfor %}
         </div>
 
-        <!-- ناوبری صفحه‌ها -->
         <div style="margin-top: 18px; font-size: 13px; display:flex; justify-content:space-between; align-items:center;">
             <div>
                 {% if page_obj.has_previous %}
@@ -66,7 +64,6 @@
         </div>
     </section>
 
-    <!-- ستون راست: خلاصه سبد یا متن معرفی ساده -->
     <aside class="side-panel">
         <h2 style="margin-top:0; font-size:18px;">Your cart</h2>
         <p style="font-size:13px; color:var(--muted);">
